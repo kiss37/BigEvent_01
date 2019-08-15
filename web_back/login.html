@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/iconfont.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- 导入bootstrap -->
+    <link rel="stylesheet" href="./js/bootstrap/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -30,8 +32,29 @@
         </div>
 
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">温馨提示</h4>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- 导入jq模块 -->
     <script src="./js/jquery-1.12.4.min.js"></script>
+    <!-- 导入bootstrap -->
+    <script src="./js/bootstrap/js/bootstrap.min.js"></script>
     <script>
         $(function () {
             // 给登录按钮设置点击事件
@@ -42,26 +65,32 @@
                 let password = $('.input_pass').val().trim();
                 // 判断是否输入为空
                 if (username == "" || password == "") {
-                    alert("账号名密码为空");
+                    // alert("账号名密码为空");
+                    $(".modal-body").text('账号名密码为空')
+                    $('#myModal').modal({
+                        keyboard: false
+                    })
                     return;
                 }
                 // 发送ajax请求
                 $.ajax({
-                    type:'post',
-                    url:'http://localhost:8080/admin/user/login',
-                    data:{
+                    type: 'post',
+                    url: 'http://localhost:8080/admin/user/login',
+                    data: {
                         username,
                         password
                     },
-                    success : function (backData) {
+                    success: function (backData) {
                         console.log(backData);
-                        if(backData.code==200){
-                            alert("登录成功")
-                            window.location.href="index.html"
-                        }else{
-                            alert("用户名密码错误")
+                        if (backData.code == 200) {
+                            window.location.href = "index.html"
+                        } else {
+                            // alert("用户名密码错误")
+                            $(".modal-body").text('用户名密码错误')
+                            $('#myModal').modal({
+                                keyboard: false
+                            })
                         }
-                        
                     }
                 });
             });
