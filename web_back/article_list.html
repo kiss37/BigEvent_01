@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="css/iconfont.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="./js/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./js/jquery.twbsPagination.js"></script>
 </head>
 
 <body>
@@ -30,9 +32,9 @@
                             <option>爱旅行</option>
                         </select>
                         <select id="selStatus" name="" class="form-control input-sm">
-                            <option>所有状态</option>
-                            <option value="drafted">草稿</option>
-                            <option value="published">已发布</option>
+                            <option value="">所有状态</option>
+                            <option value="草稿">草稿</option>
+                            <option value="已发布">已发布</option>
                         </select>
                         <button id="btnSearch" class="btn btn-default btn-sm">筛选</button>
                     </form>
@@ -58,7 +60,7 @@
 
 
                     <tr>
-                        
+
                         <td>王积千造统最头</td>
                         <td>杰克</td>
                         <td>奇趣事</td>
@@ -77,7 +79,7 @@
 
 
                     <tr>
-                     
+
                         <td>级电使正回</td>
                         <td>肉丝</td>
                         <td>爱旅行</td>
@@ -96,7 +98,7 @@
 
 
                     <tr>
-                       
+
                         <td>近难领管年算</td>
                         <td>杰克</td>
                         <td>会生活</td>
@@ -115,7 +117,7 @@
 
 
                     <tr>
-                       
+
                         <td>龙大实究</td>
                         <td>杰克</td>
                         <td>未分类</td>
@@ -134,7 +136,7 @@
 
 
                     <tr>
-                      
+
                         <td>算性得走来拉</td>
                         <td>肉丝</td>
                         <td>奇趣事</td>
@@ -153,7 +155,7 @@
 
 
                     <tr>
-                      
+
                         <td>几平会出气</td>
                         <td>管理员</td>
                         <td>奇趣事</td>
@@ -172,7 +174,7 @@
 
 
                     <tr>
-                      
+
                         <td>世团先证型角</td>
                         <td>杰克</td>
                         <td>奇趣事</td>
@@ -191,7 +193,7 @@
 
 
                     <tr>
-                      
+
                         <td>构更反步五</td>
                         <td>肉丝</td>
                         <td>奇趣事</td>
@@ -210,7 +212,7 @@
 
 
                     <tr>
-                       
+
                         <td>组方些</td>
                         <td>肉丝</td>
                         <td>会生活</td>
@@ -229,7 +231,7 @@
 
 
                     <tr>
-                      
+
                         <td>日做发光成</td>
                         <td>管理员</td>
                         <td>爱旅行</td>
@@ -250,29 +252,133 @@
             </table>
 
             <div class="row text-center">
-            <ul class="pagination pagination-sm">
-                <li class="page-item first disabled"><a href="#" class="page-link">首页</a></li>
-                <li class="page-item prev disabled"><a href="#" class="page-link">上一页</a></li>
-                <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                <li class="page-item"><a href="#" class="page-link">3</a></li>
-                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                <li class="page-item"><a href="#" class="page-link">6</a></li>
-                <li class="page-item"><a href="#" class="page-link">7</a></li>
-                <li class="page-item next"><a href="#" class="page-link">下一页</a></li>
-                <li class="page-item last"><a href="#" class="page-link">尾页</a></li>
-            </ul>
-        </div>
+                <ul class="pagination pagination-sm">
+                    <li class="page-item first disabled"><a href="#" class="page-link">首页</a></li>
+                    <li class="page-item prev disabled"><a href="#" class="page-link">上一页</a></li>
+                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                    <li class="page-item"><a href="#" class="page-link">6</a></li>
+                    <li class="page-item"><a href="#" class="page-link">7</a></li>
+                    <li class="page-item next"><a href="#" class="page-link">下一页</a></li>
+                    <li class="page-item last"><a href="#" class="page-link">尾页</a></li>
+                </ul>
+            </div>
 
         </div>
     </div>
-
+    <!-- 导入模板 -->
+    <script src="./js/template-web.js"></script>
+    <script id="article_cate" type="text/html">
+        <option value="">所有分类</option>
+        {{each data v}}
+            <option value="{{v.id}}">{{v.name}}</option>
+        {{/each}}
+    </script>
+    <script id="article_list" type="text/html">
+        {{each data.data v}}
+            <tr>
+                <td>{{v.title}}</td>
+                <td>{{v.author}}</td>
+                <td>{{v.category}}</td>
+                <td class="text-center">{{v.date}}</td>
+                <td class="text-center">{{v.state}}</td>
+                <td class="text-center">
+                    <a href="article_edit.html?id={{v.id}}" class="btn btn-default btn-xs">编辑</a>
+                    <a href="#" data-id="{{v.id}}" class="btn btn-danger btn-xs">删除</a>
+                </td>
+            </tr>
+        {{/each}}
+    </script>
     <script>
         // 设置左侧菜单
-        $('#release_btn').click(function(){
-            window.parent.setMenu(1,1);
-        })
+        $('#release_btn').click(function () {
+            window.parent.setMenu(1, 1);
+        });
+
+        $(function () {
+            // 一进页面就发送ajax获取所有文章并且渲染到下拉菜单中
+            $.ajax({
+                url: 'http://localhost:8080/admin/category/list',
+                success: function (backData) {
+                    // 调用模板核心方法
+                    let resHtml = template("article_cate", backData);
+                    $("#selCategory").html(resHtml);
+                }
+            });
+
+
+            let artiCate;
+            let artiState;
+            let flag = true;
+            // 点击筛选按钮
+            $("#btnSearch").on("click", function (e) {
+                flag = false;
+                e.preventDefault();
+                // 获取下拉菜单的value
+                artiCate = $('#selCategory').val();
+                artiState = $("#selStatus").val();
+
+                getData(1, artiCate, artiState)
+            });
+
+
+
+            // 页码
+            let mytotalPages = 10;
+            let $pagination = $('.pagination');
+            let defaultOpts = {
+                totalPages: mytotalPages,
+                visiblePages: 5,
+                first: "首页",
+                prev: "上一页",
+                next: "下一页",
+                last: "尾页",
+                onPageClick: function (event, page) {
+                    getData(page, artiCate, artiState)
+                }
+            };
+            $pagination.twbsPagination(defaultOpts);
+
+
+
+            // 页面一进来调用一次
+            function getData(myPage, artiCate, artiState) {
+                // 一进页面就获取文章
+                $.ajax({
+                    type: 'get',
+                    url: 'http://localhost:8080/admin/article/query',
+                    data: {
+                        page: myPage,
+                        type: artiCate,
+                        state: artiState,
+                        perpage: 5,
+                    },
+                    success: function (backData) {
+                        // console.log(backData);
+                        // 1.调用核心方法
+                        var resHtml = template("article_list", backData);
+                        $("tbody").html(resHtml);
+
+
+                        var totalPages = backData.data.totalPage;
+                        if (mytotalPages != totalPages || flag == false) {
+                            mytotalPages = totalPages;
+                            var currentPage = $pagination.twbsPagination('getCurrentPage');
+                            $pagination.twbsPagination('destroy');
+                            $pagination.twbsPagination($.extend({}, defaultOpts, {
+                                startPage: 1,
+                                totalPages: totalPages
+                            }));
+                            // 执行完毕开关关上
+                            flag = true;
+                        }
+                    }
+                });
+            }
+        });
     </script>
 
 </body>
